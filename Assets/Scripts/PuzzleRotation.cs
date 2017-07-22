@@ -7,13 +7,22 @@ public class PuzzleRotation : MonoBehaviour {
     public float rotationSpeed;
     public float rotationRatio;
 
+    public Transform pivotObject;
+
     bool isRotating;
     Vector3 mousePosition;
+    int rotationDirectionY;
+    int rotationDirectionX;
     // Use this for initialization
     void Start() {
         this.isRotating = false;
+        this.rotationDirectionY = 0;
+        this.rotationDirectionX = 0;
     }
 
+    private void OnMouseDrag()
+    {
+    }
     // Update is called once per frame
     void Update() {
         if (Input.GetMouseButtonDown(0))
@@ -36,10 +45,14 @@ public class PuzzleRotation : MonoBehaviour {
     }
 
     void doRatation() {
-        Vector3 oldMousePosition = mousePosition;
-        mousePosition = Input.mousePosition;
-        Vector3 rotationDelta = (mousePosition - oldMousePosition) * this.rotationRatio;
-        
-        this.transform.Rotate(rotationDelta  * this.rotationSpeed * Time.deltaTime);
+
+        float rotationX = Input.GetAxis("Mouse X") * rotationSpeed * Mathf.Deg2Rad;
+        float rotationY = Input.GetAxis("Mouse Y") * rotationSpeed * Mathf.Deg2Rad;
+
+        Debug.Log(rotationX);
+        Debug.Log(rotationY);
+
+        this.transform.RotateAround(pivotObject.position, Vector3.up, -rotationX);
+        this.transform.RotateAround(pivotObject.position, Vector3.right, rotationY);
     }
 }
