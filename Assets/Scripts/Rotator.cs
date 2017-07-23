@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PuzzleRotation : MonoBehaviour {
+public class Rotator : MonoBehaviour
+{
 
     public float rotationSpeed;
     public float rotationRatio;
@@ -14,7 +15,8 @@ public class PuzzleRotation : MonoBehaviour {
     int rotationDirectionY;
     int rotationDirectionX;
     // Use this for initialization
-    void Start() {
+    void Start()
+    {
         this.isRotating = false;
         this.rotationDirectionY = 0;
         this.rotationDirectionX = 0;
@@ -24,7 +26,8 @@ public class PuzzleRotation : MonoBehaviour {
     {
     }
     // Update is called once per frame
-    void Update() {
+    void Update()
+    {
         if (Input.GetMouseButtonDown(0))
         {
             this.isRotating = true;
@@ -34,8 +37,10 @@ public class PuzzleRotation : MonoBehaviour {
         {
             this.isRotating = false;
         }
-        else {
-            if (isRotating) {
+        else
+        {
+            if (isRotating)
+            {
                 this.doRatation();
 
             }
@@ -44,15 +49,30 @@ public class PuzzleRotation : MonoBehaviour {
 
     }
 
-    void doRatation() {
+    void doRatation()
+    {
 
         float rotationX = Input.GetAxis("Mouse X") * rotationSpeed * Mathf.Deg2Rad;
         float rotationY = Input.GetAxis("Mouse Y") * rotationSpeed * Mathf.Deg2Rad;
 
-        //this.transform.RotateAround(pivotObject.position, Vector3.up, -rotationX);
-        //this.transform.RotateAround(pivotObject.position, Vector3.right, rotationY);
+        if (this.tag == Tag.CameraDollingTag)
+        {
+            this.transform.RotateAround(pivotObject.position, Vector3.up, rotationX);
 
-        this.transform.RotateAround(Vector3.zero, Vector3.up, -rotationX);
-        this.transform.RotateAround(Vector3.zero, Vector3.right, rotationY);
+            this.transform.RotateAround(pivotObject.position, Vector3.right, -rotationY);
+        }
+        else
+        {
+
+            this.transform.RotateAround(pivotObject.position, Vector3.up, -rotationX);
+            this.transform.RotateAround(pivotObject.position, Vector3.right, rotationY);
+        }
+
     }
+}
+
+public class Tag
+{
+    public const string CameraDollingTag = "CameraDolling";
+
 }

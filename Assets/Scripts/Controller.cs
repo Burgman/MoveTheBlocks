@@ -16,7 +16,6 @@ public class Controller : MonoBehaviour
                                               Mathf.RoundToInt(directionTemp.y), 
                                               Mathf.RoundToInt(directionTemp.z));
 
-        target.Translate(directionActual * Time.deltaTime * 5.0f);
     }
   
 }
