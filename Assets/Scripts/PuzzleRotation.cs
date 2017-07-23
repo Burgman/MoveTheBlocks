@@ -49,10 +49,10 @@ public class PuzzleRotation : MonoBehaviour {
         float rotationX = Input.GetAxis("Mouse X") * rotationSpeed * Mathf.Deg2Rad;
         float rotationY = Input.GetAxis("Mouse Y") * rotationSpeed * Mathf.Deg2Rad;
 
-        Debug.Log(rotationX);
-        Debug.Log(rotationY);
+        //this.transform.RotateAround(pivotObject.position, Vector3.up, -rotationX);
+        //this.transform.RotateAround(pivotObject.position, Vector3.right, rotationY);
 
-        this.transform.RotateAround(pivotObject.position, Vector3.up, -rotationX);
-        this.transform.RotateAround(pivotObject.position, Vector3.right, rotationY);
+        this.transform.RotateAround(Vector3.zero, Vector3.up, -rotationX);
+        this.transform.RotateAround(Vector3.zero, Vector3.right, rotationY);
     }
 }

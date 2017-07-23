@@ -2,50 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Controller : MonoBehaviour {
+public class Controller : MonoBehaviour
+{
 
     public Transform target;
+    public Transform mainCameraTransform;
 
+    public void OnGoButtonPressed() {
+        Vector3 directionTemp = target.position - mainCameraTransform.position;
+        directionTemp = directionTemp.normalized; 
+        Debug.Log(directionTemp);
+        Vector3 directionActual = new Vector3(Mathf.RoundToInt(directionTemp.x), 
+                                              Mathf.RoundToInt(directionTemp.y), 
+                                              Mathf.RoundToInt(directionTemp.z));
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-    public void OnButtonClick(string buttonID) {
-        if (buttonID == ButtonID.FORWARD)
-        {
-            this.target.localPosition += Vector3.forward;
-        }
-        else if (buttonID == ButtonID.BACKWARD)
-        {
-            this.target.localPosition += Vector3.back;
-        }
-        else if (buttonID == ButtonID.LEFT)
-        {
-            this.target.localPosition += Vector3.left;
-        }
-        else if (buttonID == ButtonID.RIGHT)
-        {
-            this.target.localPosition += Vector3.right;
-        }
-        else if (buttonID == ButtonID.UP)
-        {
-            this.target.localPosition += Vector3.up;
-        }
-        else if (buttonID == ButtonID.DOWN)
-        {
-            this.target.localPosition += Vector3.down;
-        }
+        target.Translate(directionActual * Time.deltaTime * 5.0f);
     }
+  
 }
 
-public class ButtonID {
+public class ButtonID
+{
     public const string FORWARD = "forward";
     public const string BACKWARD = "backward";
     public const string LEFT = "left";
